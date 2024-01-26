@@ -60,6 +60,19 @@ import {
 } from './constants';
 import {printMigrationTipsRelatedToProps} from "./migration-tips";
 
+function Background(props) {
+  return (
+    <rect
+      fill={props.background}
+      x={0}
+      y={0}
+      width={props.value.viewerWidth}
+      height={props.value.viewerHeight}
+      style={{pointerEvents: "none"}}
+    />
+  )
+}
+
 export default class ReactSVGPanZoom extends React.Component {
 
   constructor(props, context) {
@@ -270,7 +283,7 @@ export default class ReactSVGPanZoom extends React.Component {
     let {props, state: {pointerX, pointerY}} = this;
     let tool = this.getTool();
     let value = this.getValue();
-    let {customToolbar: CustomToolbar = Toolbar, customMiniature: CustomMiniature = Miniature} = props;
+    let {customToolbar: CustomToolbar = Toolbar, customMiniature: CustomMiniature = Miniature, customBackground: CustomBackround = Background} = props;
 
     let panningWithToolAuto = tool === TOOL_AUTO
       && value.mode === MODE_PANNING
@@ -369,14 +382,7 @@ export default class ReactSVGPanZoom extends React.Component {
             this.handleViewerEvent(event);
           }}>
 
-          <rect
-            fill={props.background}
-            x={0}
-            y={0}
-            width={value.viewerWidth}
-            height={value.viewerHeight}
-            style={{pointerEvents: "none"}}
-          />
+          <CustomBackround background={props.background} value={value} />
 
           <g
             transform={toSVG(value)}
@@ -514,6 +520,11 @@ ReactSVGPanZoom.propTypes = {
   * background of the svg
   */
   SVGBackground: PropTypes.string,
+
+  /**
+  * override backround component
+  */
+  customBackground: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
 
   /**
   * style of the svg
@@ -706,5 +717,5 @@ ReactSVGPanZoom.defaultProps = {
   onZoom: null,
   onPan: null,
   toolbarProps: {},
-  miniatureProps: {},
+  miniatureProps: {},  
 };
