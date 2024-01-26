@@ -19,7 +19,8 @@
     "build:umd": "webpack",
     "clean": "del build-* coverage",
     "test:jest": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "prepublishOnly": "npm run clean && npm run test && npm run build"
   },
   "files": [
     "*.md",
