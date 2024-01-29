@@ -118,8 +118,10 @@ export function onWheel(event, ViewerDOM, tool, value, props, coords = null) {
 
   if (!props.detectWheel) return value;
 
-  let delta = Math.max(-1, Math.min(1, event.deltaY));
-  let scaleFactor = mapRange(delta, -1, 1, props.scaleFactorOnWheel, 1 / props.scaleFactorOnWheel);
+  const z = normalizeWheel(event)[2];
+  const delta = z;
+  const scaleFactor = mapRange(delta, -10, 10, props.scaleFactorOnWheel, 1 / props.scaleFactorOnWheel);
+
 
   let SVGPoint = getSVGPoint(value, x, y);
   let nextValue = zoom(value, SVGPoint.x, SVGPoint.y, scaleFactor, props);
@@ -143,4 +145,27 @@ export function onInterval(event, ViewerDOM, tool, value, props, coords = null) 
   if (!value.focus) return value;
 
   return autoPanIfNeeded(value, x, y);
+}
+
+// Reasonable defaults
+const MAX_ZOOM_STEP = 10
+
+// Adapted from https://stackoverflow.com/a/13650579
+function normalizeWheel(event) {
+  const { deltaY, deltaX } = event
+
+  let deltaZ = 0
+
+  const signY = Math.sign(event.deltaY)
+  const absDeltaY = Math.abs(event.deltaY)
+
+  let dy = deltaY
+
+  if (absDeltaY > MAX_ZOOM_STEP) {
+    dy = MAX_ZOOM_STEP * signY
+  }
+
+  deltaZ = dy
+
+  return [deltaX, deltaY, deltaZ]
 }
