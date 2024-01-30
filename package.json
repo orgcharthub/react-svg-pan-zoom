@@ -29,13 +29,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrvadala/react-svg-pan-zoom.git"
+    "url": "git+https://github.com/orgcharthub/react-svg-pan-zoom.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chrvadala/react-svg-pan-zoom/issues"
+    "url": "https://github.com/orgcharthub/react-svg-pan-zoom/issues"
   },
-  "homepage": "https://chrvadala.github.io/react-svg-pan-zoom/",
+  "homepage": "https://orgcharthub.github.io/react-svg-pan-zoom/",
   "keywords": [
     "react",
     "react-component",
