@@ -1,5 +1,6 @@
 export {default as ReactSVGPanZoom} from './viewer';
 export {default as UncontrolledReactSVGPanZoom} from './uncontrolled-viewer';
+export {default as ReactHTMLPanZoom} from './html-viewer';
 export {default as Toolbar} from './ui-toolbar/toolbar';
 export {default as ToolbarButton} from './ui-toolbar/toolbar-button';
 export {default as IconCursor} from './ui-toolbar/icon-cursor';
